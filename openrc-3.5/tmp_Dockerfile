@@ -1,0 +1,41 @@
+FROM fulsome/alpine:$VERSION.$PATCH_VERSION
+LABEL Maintainer="Brian Robertson <brian@fulso.me>" \
+      Description="Minimal Alpine image with openrc for services."
+
+RUN apk add --no-cache openrc
+
+# No tty without privilege
+RUN sed -i '/^tty/d' /etc/inittab
+RUN sed -i \
+# we're running inside docker
+    -e 's|#rc_sys=".*"|rc_sys="docker"|g' \
+# docker is providing our network
+    -e 's|#rc_provide=".*"|rc_provide="loopback net"|g' \
+# logging
+    -e 's|^#\(rc_logger=".*"\)|\1|' \
+# allow ENV variables
+    -e 's|#\(rc_env_allow=".*"\)|\1|g' \
+# restart crashed services
+    -e 's|#rc_crashed_stop=.*|rc_crashed_stop=NO|g' \
+    -e 's|#rc_crashed_start=.*|rc_crashed_start=YES|g' \
+    /etc/rc.conf
+# docker sets the hostname
+RUN sed -i 's|\(hostname .*$\)|#\1|g' /etc/init.d/hostname
+# no tmpfs without privilege
+RUN sed -i 's|\(mount -t tmpfs\)|#\1|g' /lib/rc/sh/init.sh
+# no cgroups
+RUN sed -i 's|^\s*\(cgroup_add_service\)|#\1|g' /lib/rc/sh/openrc-run.sh
+RUN sed -i 's|VSERVER|DOCKER|Ig' /lib/rc/sh/init.sh
+
+# Get rid of unneeded inits
+RUN rm -f \
+      /etc/init.d/hwdrivers \
+      /etc/init.d/hwclock \
+      /etc/init.d/hwdrivers \
+      /etc/init.d/modules \
+      /etc/init.d/modules-load \
+      /etc/init.d/modloop
+
+# RUN rc-update add service default
+
+CMD ["/sbin/init"]
