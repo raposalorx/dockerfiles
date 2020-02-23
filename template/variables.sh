@@ -1,0 +1,15 @@
+NAME=name
+VERSION=0.0
+PATCH_VERSION=0
+ARCH="x86_64"
+
+EXTRACT_CMD='tar -xzf'
+HASH_CMD='sha256sum'
+
+SRC=myfolder
+SRC_FILE=myfile
+HASH_FILE=$SRC_FILE'.sha256'
+
+BASE_URL="http://site/releases/"
+SRC_URL=$BASE_URL$SRC_FILE
+HASH_URL=$BASE_URL$HASH_FILE
