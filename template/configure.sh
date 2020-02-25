@@ -51,7 +51,7 @@ fi
 printf '\nConfiguring Dockerfile.\n'
 # Variables have to be declared on the same line.
 SRC=$SRC \
-envsubst < tmp_Dockerfile > Dockerfile
+envsubst '$SRC' < tmp_Dockerfile > Dockerfile
 
 printf '\nMaking build.sh executable.\n'
 chmod +x build.sh

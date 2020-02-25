@@ -1,0 +1,14 @@
+FROM fulsome/php5:$FROM_VERSION
+LABEL Maintainer="Brian Robertson <brian@fulso.me>" \
+      Description="Minimal mytinytodo server."
+
+USER root
+RUN apk add --no-cache php5-pdo php5-sqlite3 php5-pdo_sqlite php5-json
+
+COPY --chown=www $SRC /www
+RUN chown -R www:www /www
+USER www
+
+VOLUME /www/db/
+
+# USE DEFAULT CMD
