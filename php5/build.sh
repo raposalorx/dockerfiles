@@ -3,7 +3,7 @@
 source variables.sh
 
 printf '\nBuilding docker image.\n'
-docker build . -t fulsome/"$NAME:$VERSION.$PATCH_VERSION"
+docker build . -t fulsome/"$NAME:$VERSION.$PATCH_VERSION" -t fulsome/"$NAME:$VERSION"
 
 if [ $? == 0 ]
 then

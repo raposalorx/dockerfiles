@@ -1,0 +1,7 @@
+FROM fulsome/alpine:$VERSION
+LABEL Maintainer="Brian Robertson <brian@fulso.me>" \
+      Description="Use multirun instead of supervisord or openrc"
+
+COPY $SRC/$SRC /bin/$SRC
+
+CMD ["/bin/mulitrun"]

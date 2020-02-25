@@ -10,5 +10,5 @@ Don't set the CMD. But if you do set it as
 CMD ["/sbin/init"]
 ```
 
-#Depends
+# Depends
 This image depends on fulsome/alpine

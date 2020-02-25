@@ -28,16 +28,7 @@ else
   fi
 fi
 
-printf '\nHashing...\n'
-SRC_HASH=$($HASH_CMD "$SRC_FILE")
-SHA_HASH=$(cat "$HASH_FILE")
-if [ "$SRC_HASH" == "$SHA_HASH" ]
-then
-  printf 'Source file is authentic.\n'
-else
-  printf 'Source file is not authentic... exiting.\n'
-  exit 2
-fi
+printf 'Please verify hash manually\n'
 
 printf '\nUnpacking...\n'
 if [ -d "$SRC" ]
@@ -51,6 +42,8 @@ fi
 printf '\nConfiguring Dockerfile.\n'
 # Variables have to be declared on the same line.
 SRC=$SRC \
+VERSION=$VERSION \
+PATCH_VERSION=$PATCH_VERSION \
 envsubst < tmp_Dockerfile > Dockerfile
 
 printf '\nMaking build.sh executable.\n'

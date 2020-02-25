@@ -1,7 +1,0 @@
-FROM scratch
-LABEL Maintainer="Brian Robertson <brian@fulso.me>" \
-      Description="Minimal Alpine image."
-
-ADD $SRC /
-
-CMD ['/bin/sh']

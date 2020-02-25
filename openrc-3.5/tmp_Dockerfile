@@ -1,4 +1,5 @@
-FROM fulsome/alpine:$VERSION.$PATCH_VERSION
+#FROM fulsome/alpine:$VERSION.$PATCH_VERSION
+FROM fulsome/alpine:$VERSION
 LABEL Maintainer="Brian Robertson <brian@fulso.me>" \
       Description="Minimal Alpine image with openrc for services."
 
