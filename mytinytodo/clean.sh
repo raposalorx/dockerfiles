@@ -7,5 +7,4 @@ chmod -x build.sh
 
 rm "Dockerfile"
 rm -rf "$SRC"
-rm "$HASH_FILE"
-rm "$TAR_FILE"
+rm "$SRC_FILE"
