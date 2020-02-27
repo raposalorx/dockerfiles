@@ -55,4 +55,4 @@ RUN chown -R www:www /var/lib/nginx &&\
 USER www
 # define user in nginx and php, run init as root
 CMD ["multirun", "-v", "php-fpm5 -F", "nginx -g 'daemon off;'"]
-HEALTHCHECK --timeout=10s CMD curl --silent --fail http://127.0.0.1:80/fpm-ping
+HEALTHCHECK --timeout=10s CMD curl --silent --fail http://127.0.0.1:8080/fpm-ping
